@@ -24,6 +24,44 @@ public class MyLinkedList<T> {
 		this.end = null;
 	}
 
+	public int size() {
+		return this.size;
+	}
+
+	public boolean isEmpty() {
+		return size == 0;
+	}
+
+	public T get(int index) {
+		return traverse(index).data;
+	}
+
+	public T getFirst(){
+		if(size > 0) {
+			return traverse(0).data;
+		}
+		return null;
+	}
+
+	public T getLast(){
+		if( size > 0 ){
+		return traverse(size-1).data;
+		}
+		return null;
+	}
+
+	public Node<T> traverse(int index) {
+		if( index < 0 || index > size ) {
+			throw new IndexOutOfBoundsException();
+		} else {
+			Node<T> current = start;
+			for (int i = 0 ; i < index ; i++ ) {
+				current = current.next;
+			}
+			return current;
+		}
+	}
+
 	public void addAtBeg(T value) {
 		add(0,value);
 	}
@@ -71,6 +109,14 @@ public class MyLinkedList<T> {
 		}
 	}
 
+	public void remove(int index) {
+		Node<T> current = traverse(index - 1);
+		Node<T> nextToNext = current.next.next;
+		current.next = nextToNext;
+		nextToNext = current;
+		size--;
+	}
+
 	@Override
 	public String toString(){
 		StringBuilder buffer = new StringBuilder();
@@ -86,12 +132,6 @@ public class MyLinkedList<T> {
 
 	public static void main(String[] args) {
 		MyLinkedList<Integer> list = new MyLinkedList<>();
-		//list.add(0,4);
-		//list.add(0,3);
-		//list.add(0,2);
-		//list.add(0,1);
-		//list.add(4,5);
-		//list.add(0,0);
 		list.addAtBeg(4);
 		list.addAtBeg(3);
 		list.addAtBeg(2);
@@ -99,6 +139,8 @@ public class MyLinkedList<T> {
 		list.addToEnd(5);
 		list.add(0,0);
 		list.add(2,10);
+		System.out.println(list);
+		list.remove(2);
 		System.out.println(list);
 	}
 
