@@ -45,14 +45,14 @@ public class MyLinkedList<T> implements Iterable<T> {
 
 	public T getFirst(){
 		if(size > 0) {
-			return traverse(0).data;
+			return start.data;
 		}
 		return null;
 	}
 
 	public T getLast(){
 		if( size > 0 ){
-		return traverse(size-1).data;
+		return rear.data;
 		}
 		return null;
 	}
