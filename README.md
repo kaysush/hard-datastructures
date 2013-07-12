@@ -7,3 +7,4 @@ Implemented so far
 
 * ArrayList
 * LinkedList
+* Stack (both Array and LinkedList implementation )
