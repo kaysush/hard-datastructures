@@ -1,3 +1,8 @@
+package Lists;
+
+import java.lang.Iterable;
+import java.lang.StringBuilder;
+import java.lang.ArrayIndexOutOfBoundsException;
 import java.util.Iterator;
 
 public class MyLinkedList<T> implements Iterable<T> {
