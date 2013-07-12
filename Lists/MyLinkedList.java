@@ -52,7 +52,7 @@ public class MyLinkedList<T> implements Iterable<T> {
 
 	public T getLast(){
 		if( size > 0 ){
-		return rear.data;
+		return end.data;
 		}
 		return null;
 	}
@@ -80,14 +80,14 @@ public class MyLinkedList<T> implements Iterable<T> {
 	public T removeFromBeg(){
 		T data = start.data;
 		start = start.next;
-		start.prev = null;
+		start.previous = null;
 		size--;
 		return data;
 	}
 
 	public T removeFromEnd(){
-		T data = rear.data;
-		rear.previous.next = null;
+		T data = end.data;
+		end.previous.next = null;
 		size--;
 		return data;
 	}
