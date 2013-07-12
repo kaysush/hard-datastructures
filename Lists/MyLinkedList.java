@@ -1,4 +1,6 @@
-public class MyLinkedList<T> {
+import java.util.Iterator;
+
+public class MyLinkedList<T> implements Iterable<T> {
 	
 
 	private class Node<T> {
@@ -117,6 +119,13 @@ public class MyLinkedList<T> {
 		size--;
 	}
 
+	public void remove(Node<T> node){
+		Node<T> prev = node.previous;
+		Node<T> next = node.next;
+		prev.next = next;
+		next.previous = prev;
+	}
+
 	@Override
 	public String toString(){
 		StringBuilder buffer = new StringBuilder();
@@ -130,6 +139,37 @@ public class MyLinkedList<T> {
 		return buffer.toString();
 	}
 
+	public Iterator<T> iterator(){
+		return new MyLinkedListIterator();
+	}
+
+	private class MyLinkedListIterator implements Iterator<T>{
+		private int current;
+		private Node<T> currentNode;
+
+		MyLinkedListIterator(){
+			currentNode = start;
+		}
+		
+		public boolean hasNext(){
+			return current < size;
+		}
+
+		public T next(){
+			T data = currentNode.data;
+			currentNode = currentNode.next;
+			current++;
+			return data;
+		}
+
+		public void remove(){
+			Node<T> next = currentNode.next;
+			MyLinkedList.this.remove(currentNode);
+			current--;
+			currentNode = next;
+		}
+	}
+
 	public static void main(String[] args) {
 		MyLinkedList<Integer> list = new MyLinkedList<>();
 		list.addAtBeg(4);
@@ -139,9 +179,13 @@ public class MyLinkedList<T> {
 		list.addToEnd(5);
 		list.add(0,0);
 		list.add(2,10);
-		System.out.println(list);
+		//System.out.println(list);
 		list.remove(2);
-		System.out.println(list);
+		//System.out.println(list);
+
+		for (Integer data : list ) {
+			System.out.println(data);
+		}
 	}
 
 
