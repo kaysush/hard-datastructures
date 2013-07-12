@@ -77,6 +77,17 @@ public class MyLinkedList<T> implements Iterable<T> {
 		add(size,value);
 	}
 
+	public void removeFromBeg(){
+		start = start.next;
+		start.prev = null;
+		size--;
+	}
+
+	public void removeFromEnd(){
+		rear.previous.next = null;
+		size--;
+	}
+
 	public void add(int index , T value) {
 
 		if (index < 0 || index > size) {
