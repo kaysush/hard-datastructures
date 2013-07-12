@@ -1,8 +1,9 @@
 import java.lang.Iterable;
 import java.lang.StringBuilder;
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.util.Iterator;
 
-public class MyArrayList<T>{
+public class MyArrayList<T> implements Iterable<T> {
 
 	private T[] items;
 	private int size;
@@ -20,6 +21,10 @@ public class MyArrayList<T>{
 	}
 
 
+	/**
+	 * Clears the list and set its capacity to DEFAULT_CAPACITY
+	 */
+
 	private void clear( int size ) {
 		this.size = 0;
 		this.capacity = 0;
@@ -30,20 +35,47 @@ public class MyArrayList<T>{
 		clear(DEFAULT_CAPACITY);
 	}
 
+	/**
+	 * Returns the number of elements in this list
+	 */
+
 	public int size() {
 		return this.size;
 	}
+
+	/**
+	 * Set the capacity of the list to the current size ( no. of elements ).
+	 * This method should be called once all the insertions are done to reclaim any
+	 * extra memory that the array is taking up.
+	 */
+
 	public void trimToSize() {
 		ensureCapacity(size);
 	}
+
+	
+
+	/**
+	 * Returns whether the list is empty or not.
+	 */
 
 	public boolean isEmpty() {
 		return size == 0;
 	}
 
+
+	/**
+	 * Gives the value of index.
+	 */
+
 	public T get(int index) {
 		return this.items[index];
 	}
+
+
+	/**
+	 * Sets the value of index.
+	 */
 
 	public void set(int index , T value) {
 		if(index < 0 || index > size -1) {
@@ -53,11 +85,21 @@ public class MyArrayList<T>{
 		}
 	}
 
+
+	/**
+	 * Add an item at the end of the list.
+	 */
+
 	public boolean add(T value) {
 
 		items[size++] = value;
 		return true;
 	}
+
+
+	/**
+	 * Add an item at the specific index.
+	 */
 
 	public boolean add(int index ,T value) {
 		if (index < 0 ) {
@@ -77,6 +119,10 @@ public class MyArrayList<T>{
 	}
 
 
+	/**
+	 * Removes an item from the given index.
+	 */
+
 	public T remove(int index) {
 		if(index < 0 || index > size -1) {
 			throw new ArrayIndexOutOfBoundsException(index);
@@ -90,6 +136,13 @@ public class MyArrayList<T>{
 	}
 }
 
+
+
+	/**
+	 * This method ensures that the current capacity of the array should be
+	 * atleast the value of capacity.User can call this method any time to expand the list.
+	 * Note : List can't be shrinked with this method.
+	 */
 
 	public void ensureCapacity(int capacity) {
 
@@ -112,6 +165,10 @@ public class MyArrayList<T>{
 
 	}
 
+	public Iterator<T> iterator() {
+		return new MyArrayListIterator();
+	}
+
 
 	@Override
 	public String toString() {
@@ -128,6 +185,31 @@ public class MyArrayList<T>{
 	}
 
 
+	/**
+	 * The iterator implementation to make it Iterable.
+	 */
+	private class MyArrayListIterator implements Iterator<T> {
+		private int current = 0;
+		
+		public boolean hasNext() {
+			return current < size;
+		}
+
+		public T next() {
+			return items[current++];
+		}
+
+		public void remove() {
+			MyArrayList.this.remove(--current);
+		}
+
+	}
+
+
+
+	/**
+	 * Main to test the implemented functionalities.
+	 */
 	public static void main(String[] args) {
 		MyArrayList<Integer> list = new MyArrayList<>();
 		list.add(1);
@@ -137,7 +219,15 @@ public class MyArrayList<T>{
 		list.add(2,10);
 		list.add(2,11);
 		Integer item = list.remove(2);
-		System.out.println(list);
+		//System.out.println(list);
+
+		/** 
+		* Iterable test of MyArrayList
+		*/
+		for (Integer i : list ) {
+			System.out.println(i);
+		}
+	
 	}
 
 }
