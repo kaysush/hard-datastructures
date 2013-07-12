@@ -19,6 +19,11 @@ public class ArrayStack<T> {
 		T value = stack.remove(--top);
 		return value;
 	}
+	
+	public void size(){
+		stack.size();
+	}
+	
 
 	@Override
 	public String toString(){
