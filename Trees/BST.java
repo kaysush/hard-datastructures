@@ -51,6 +51,7 @@ public class BST <T extends Comparable> {
 		if(node!=null){
 			inorder_traverse(node.left, buffer);
 			buffer.append(node.data);
+			buffer.append("|");
 			inorder_traverse(node.right, buffer);
 		}
 	}
