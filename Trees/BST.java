@@ -1,15 +1,15 @@
 package Trees;
 
-public class BST {
+public class BST <T extends Comparable> {
 	
 	private Node root;
 
 	private class Node {
-		public int data;
+		public T data;
 		public Node left;
 		public Node right;
 
-		public Node(int data , Node left , Node right){
+		public Node(T data , Node left , Node right){
 			this.data = data;
 			this.left = left;
 			this.right = right;
@@ -22,18 +22,20 @@ public class BST {
 		root = null;
 	}
 
-	public void insert(int data) {
+	public void insert(T data) {
 		root = insert(data,root);
 	}
 
-	public Node insert (int data , Node node) {
+	public Node insert (T data , Node node) {
 		if(node == null){
 			return new Node(data , null , null);
 		}
 
-		if(data < node.data )
+		int result = data.compareTo(node.data);
+
+		if( result < 0 )
 			node.left = insert(data,node.left);
-		if(data > node.data)
+		if( result > 0 )
 			node.right = insert(data, node.right);
 		return node;
 
